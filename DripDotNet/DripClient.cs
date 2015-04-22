@@ -66,6 +66,8 @@ namespace Drip
         protected virtual IRestRequest CreatePostRequest(string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
         {
             var req = new RestRequest(resourceUrl, Method.POST);
+            req.JsonSerializer = new RestSharpLcaseUnderscoreSerializer();
+
             if (requestBodyKey != null && requestBody != null)
                 req.AddJsonBody(new { requestBodyKey = requestBody });
             if (urlSegmentKey != null && urlSegmentValue != null)
