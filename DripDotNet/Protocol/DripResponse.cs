@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace DripDotNet
+namespace Drip
 {
     /// <summary>
     /// Represents the response received from the Drip REST API. Subclasses of DripResponse
@@ -48,6 +48,11 @@ namespace DripDotNet
             return Errors != null && Errors.Count > 0;
         }
 
+        public bool HasSuccessStatusCode()
+        {
+            return (int)StatusCode < 400 && !HasErrors();
+        }
+
         internal protected virtual void ProcessRestResponse(IRestResponse restResponse)
         {
             if (restResponse == null) return;
@@ -55,16 +60,4 @@ namespace DripDotNet
             StatusCode = restResponse.StatusCode;
         }
     }
-
-    /// <summary>
-    /// A response that contains DripSubscriber items.
-    /// </summary>
-    public class DripSubscribersResponse : DripResponse
-    {
-        /// <summary>
-        /// The Subscribers that were returned by the API endpoint.
-        /// </summary>
-        public List<DripSubscriber> Subscribers { get; set; }
-    }
-
 }
