@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DripClient.Campaigns.cs" />
+    <Compile Include="Client\DripClient.Campaigns.cs" />
     <Compile Include="DripClient.cs" />
-    <Compile Include="DripClient.Events.cs" />
-    <Compile Include="DripClient.Tags.cs" />
+    <Compile Include="Client\DripClient.Events.cs" />
+    <Compile Include="Client\DripClient.Tags.cs" />
     <Compile Include="Protocol\DripMeta.cs" />
     <Compile Include="Protocol\DripResponse.cs" />
     <Compile Include="Resources\DripError.cs" />
@@ -55,7 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DripClient.Subscribers.cs" />
+    <Compile Include="Client\DripClient.Subscribers.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
