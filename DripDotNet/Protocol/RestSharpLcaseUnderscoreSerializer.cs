@@ -22,7 +22,8 @@ namespace Drip
             ContentType = "application/json";
             serializer = new JsonSerializer
             {
-                ContractResolver = new LcaseUnderscoreMappingResolver()
+                ContractResolver = new LcaseUnderscoreMappingResolver(),
+                NullValueHandling = NullValueHandling.Ignore
             };
         }
 
@@ -47,7 +48,7 @@ namespace Drip
             {
                 using (var jsonTextWriter = new JsonTextWriter(stringWriter))
                 {
-                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonTextWriter.Formatting = Formatting.None;
                     jsonTextWriter.QuoteChar = '"';
                     serializer.Serialize(jsonTextWriter, obj);
                     var result = stringWriter.ToString();
