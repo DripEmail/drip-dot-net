@@ -18,9 +18,9 @@ namespace Drip
         public string Timezone { get; set; }
 
         /// <summary>
-        /// An Object containing custom field data. E.g. new { name = "John Doe" }
+        /// A dictionary containing custom field data. E.g. new Dictionary<string,object> { { "name" , "John Doe" } }
         /// </summary>
-        public object CustomFields { get; set; }
+        public Dictionary<string, object> CustomFields { get; set; }
 
         /// <summary>
         /// A list containing one or more tags. E.g. ["Customer", "SEO"].
