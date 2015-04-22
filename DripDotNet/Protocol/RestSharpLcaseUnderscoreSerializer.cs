@@ -22,6 +22,7 @@ namespace Drip
             ContentType = "application/json";
             serializer = new JsonSerializer
             {
+                ContractResolver = new LcaseUnderscoreMappingResolver()
             };
         }
 
@@ -60,6 +61,7 @@ namespace Drip
     /// A resolver used by RestSharpLcaseUnderscoreSerializer to convert property names to underscores and lowercases.
     /// From: http://stackoverflow.com/questions/3922874/c-sharp-json-net-convention-that-follows-ruby-property-naming-conventions
     /// </summary>
+    public class LcaseUnderscoreMappingResolver : DefaultContractResolver
     {
         protected override string ResolvePropertyName(string propertyName)
         {
@@ -68,4 +70,3 @@ namespace Drip
         }
     }
 }
-
