@@ -1,5 +1,5 @@
 ﻿
-namespace DripDotNet
+namespace Drip
 {
     /// <summary>
     /// Some endpoints that return collections are paginated. For these endpoints, 

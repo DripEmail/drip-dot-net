@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DripDotNet
+namespace Drip
 {
     /// <summary>
     /// Represents a Subscriber in a Drip account.
@@ -64,5 +64,16 @@ namespace DripDotNet
         /// with 422 Unprocessable Entity. Defaults to true.
         /// </summary>
         public bool? ReactivateIfRemoved { get; set; }
+    }
+
+    /// <summary>
+    /// A response that contains DripSubscriber items.
+    /// </summary>
+    public class DripSubscribersResponse : DripResponse
+    {
+        /// <summary>
+        /// The Subscribers that were returned by the API endpoint.
+        /// </summary>
+        public List<DripSubscriber> Subscribers { get; set; }
     }
 }

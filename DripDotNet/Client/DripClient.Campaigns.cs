@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DripDotNet
+namespace Drip
 {
     public partial class DripClient
     {

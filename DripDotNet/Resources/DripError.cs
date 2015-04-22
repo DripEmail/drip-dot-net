@@ -1,5 +1,5 @@
 ﻿
-namespace DripDotNet
+namespace Drip
 {
     /// <summary>
     /// Drip returns error codes to all requests in a standard format.

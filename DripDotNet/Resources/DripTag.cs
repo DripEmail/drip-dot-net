@@ -1,5 +1,5 @@
 ﻿
-namespace DripDotNet
+namespace Drip
 {
     public class DripTag
     {
