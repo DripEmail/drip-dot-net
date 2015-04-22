@@ -28,6 +28,8 @@ namespace DripDotNet
 
         /// <summary>
         /// Optional. A Object containing custom event properties. If this event is
+        /// a conversion, include the value (in cents) in the properties with a "value"
+        /// key.
         /// </summary>
         public object Properties { get; set; }
 
@@ -37,4 +39,3 @@ namespace DripDotNet
         public DateTime? OccurredAt { get; set; }
     }
 }
-
