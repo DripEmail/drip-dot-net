@@ -33,10 +33,10 @@ namespace DripDotNet
         /// applies to new subscribers — if the subscriber already exists, we will silently
         /// ignore this.
         /// </summary>
-        public bool PotentialLead { get; set; }
+        public bool? PotentialLead { get; set; }
     }
 
-    public class ModifyDripSubscriber : DripSubscriber
+    public class ModifyDripSubscriberRequest : DripSubscriber
     {
         /// <summary>
         /// Optional. A new email address for the subscriber. If provided and a subscriber
@@ -45,24 +45,24 @@ namespace DripDotNet
         public string NewEmail { get; set; }
     }
 
-    public class ModifyDripCampaignSubscriber : DripSubscriber
+    public class ModifyDripCampaignSubscriberRequest : DripSubscriber
     {
         /// <summary>
         /// Optional. If true, the double opt-in confirmation email is sent; if false, 
         /// the confirmation email is skipped. Defaults to the value set on the campaign.
         /// </summary>
-        public bool DoubleOptIn { get; set; }
+        public bool? DoubleOptIn { get; set; }
 
         /// <summary>
         /// Optional. The index (zero-based) of the email to send first. Defaults to 0.
         /// </summary>
-        public int StartingEmailIndex { get; set; }
+        public int? StartingEmailIndex { get; set; }
 
         /// <summary>
         /// Optional. If true, re-subscribe the subscriber to the campaign if there is 
         /// a removed subscriber in Drip with the same email address; otherwise, respond
         /// with 422 Unprocessable Entity. Defaults to true.
         /// </summary>
-        public bool ReactivateIfRemoved { get; set; }
+        public bool? ReactivateIfRemoved { get; set; }
     }
 }

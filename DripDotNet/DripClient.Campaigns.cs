@@ -11,9 +11,9 @@ namespace DripDotNet
         /// See: https://www.getdrip.com/docs/rest-api#subscribe
         /// </summary>
         /// <param name="campaignId">The campaign id.</param>
-        /// <param name="campaignSubscriber">A ModifyDripCampaignSubscriber containing at least an Email address.</param>
+        /// <param name="campaignSubscriber">A ModifyDripCampaignSubscriberRequest containing at least an Email address.</param>
         /// <returns>A DripSubscribersResponse.</returns>
-        public DripSubscribersResponse SubscribeToCampaign(string campaignId, ModifyDripCampaignSubscriber campaignSubscriber)
+        public DripSubscribersResponse SubscribeToCampaign(string campaignId, ModifyDripCampaignSubscriberRequest campaignSubscriber)
         {
             throw new NotImplementedException();
         }
@@ -23,10 +23,10 @@ namespace DripDotNet
         /// See: https://www.getdrip.com/docs/rest-api#subscribe
         /// </summary>
         /// <param name="campaignId">The campaign id.</param>
-        /// <param name="campaignSubscriber">A ModifyDripCampaignSubscriber containing at least an Email address.</param>
+        /// <param name="campaignSubscriber">A ModifyDripCampaignSubscriberRequest containing at least an Email address.</param>
         /// <param name="cancellationToken">The CancellationToken to be used to cancel the request.</param>
         /// <returns>A Task that, when completed, will contain a DripSubscribersResponse.</returns>
-        public Task<DripSubscribersResponse> SubscribeToCampaignAsync(string campaignId, ModifyDripCampaignSubscriber campaignSubscriber, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<DripSubscribersResponse> SubscribeToCampaignAsync(string campaignId, ModifyDripCampaignSubscriberRequest campaignSubscriber, CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }

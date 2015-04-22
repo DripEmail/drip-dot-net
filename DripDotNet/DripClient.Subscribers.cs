@@ -36,7 +36,7 @@ namespace DripDotNet
         /// </summary>
         /// <param name="subscriber">The DripSubscriber to create or update.</param>
         /// <returns>A DripSubscribersResponse</returns>
-        public DripSubscribersResponse CreateOrUpdateSubscriber(ModifyDripSubscriber subscriber)
+        public DripSubscribersResponse CreateOrUpdateSubscriber(ModifyDripSubscriberRequest subscriber)
         {
             throw new NotImplementedException();
         }
@@ -48,7 +48,7 @@ namespace DripDotNet
         /// <param name="subscriber"></param>
         /// <param name="cancellationToken">The CancellationToken to be used to cancel the request.</param>
         /// <returns>A Task that, when completed, will contain a DripSubscribersResponse.</returns>
-        public Task<DripSubscribersResponse> CreateOrUpdateSubscriberAsync(ModifyDripSubscriber subscriber, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<DripSubscribersResponse> CreateOrUpdateSubscriberAsync(ModifyDripSubscriberRequest subscriber, CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }
@@ -62,7 +62,7 @@ namespace DripDotNet
         /// </summary>
         /// <param name="subscribers">An enumerable list of ModifyDripSubscribers to create or update.</param>
         /// <returns>A DripResponse.</returns>
-        public DripResponse CreateOrUpdateSubscribers(IEnumerable<ModifyDripSubscriber> subscribers)
+        public DripResponse CreateOrUpdateSubscribers(IEnumerable<ModifyDripSubscriberRequest> subscribers)
         {
             throw new NotImplementedException();
         }
@@ -77,7 +77,7 @@ namespace DripDotNet
         /// <param name="subscribers">An enumerable list of ModifyDripSubscribers to create or update.</param>
         /// <param name="cancellationToken">The CancellationToken to be used to cancel the request.</param>
         /// <returns>A Task that, when completed, will contain a DripResponse.</returns>
-        public Task<DripResponse> CreateOrUpdateSubscribersAsync(IEnumerable<ModifyDripSubscriber> subscribers, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<DripResponse> CreateOrUpdateSubscribersAsync(IEnumerable<ModifyDripSubscriberRequest> subscribers, CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new NotImplementedException();
         }

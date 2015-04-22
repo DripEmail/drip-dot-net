@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DripClient.Campaigns.cs" />
     <Compile Include="DripClient.cs" />
+    <Compile Include="DripClient.Tags.cs" />
     <Compile Include="Protocol\DripMeta.cs" />
     <Compile Include="Protocol\DripResponse.cs" />
     <Compile Include="Resources\DripError.cs" />
