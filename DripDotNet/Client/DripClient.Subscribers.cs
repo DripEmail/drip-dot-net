@@ -43,7 +43,7 @@ namespace DripDotNet
         /// <returns>A DripSubscribersResponse</returns>
         public DripSubscribersResponse CreateOrUpdateSubscriber(ModifyDripSubscriberRequest subscriber)
         {
-            return PostResource<DripSubscribersResponse>(CreateOrUpdateSubscriberResource, new ModifyDripSubscriberRequest[] { subscriber });
+            return PostResource<DripSubscribersResponse>(CreateOrUpdateSubscriberResource, SubscribersRequestBodyKey, new ModifyDripSubscriberRequest[] { subscriber });
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace DripDotNet
         /// <returns>A Task that, when completed, will contain a DripSubscribersResponse.</returns>
         public Task<DripSubscribersResponse> CreateOrUpdateSubscriberAsync(ModifyDripSubscriberRequest subscriber, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return PostResourceAsync<DripSubscribersResponse>(CreateOrUpdateSubscriberResource, new ModifyDripSubscriberRequest[] { subscriber }, cancellationToken);
+            return PostResourceAsync<DripSubscribersResponse>(CreateOrUpdateSubscriberResource, SubscribersRequestBodyKey, new ModifyDripSubscriberRequest[] { subscriber }, cancellationToken);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace DripDotNet
         /// <returns>A DripResponse.</returns>
         public DripResponse CreateOrUpdateSubscribers(IEnumerable<ModifyDripSubscriberRequest> subscribers)
         {
-            return PostResource<DripResponse>(CreateOrUpdateSubscribersBatchResource, subscribers.ToArray());
+            return PostResource<DripResponse>(CreateOrUpdateSubscribersBatchResource, SubscribersRequestBodyKey, subscribers.ToArray());
         }
 
         /// <summary>
@@ -84,8 +84,7 @@ namespace DripDotNet
         /// <returns>A Task that, when completed, will contain a DripResponse.</returns>
         public Task<DripResponse> CreateOrUpdateSubscribersAsync(IEnumerable<ModifyDripSubscriberRequest> subscribers, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return PostResourceAsync<DripResponse>(CreateOrUpdateSubscribersBatchResource, subscribers.ToArray(), cancellationToken);
+            return PostResourceAsync<DripResponse>(CreateOrUpdateSubscribersBatchResource, SubscribersRequestBodyKey, subscribers.ToArray(), cancellationToken);
         }
     }
-
 }

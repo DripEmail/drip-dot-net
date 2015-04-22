@@ -1,4 +1,4 @@
-﻿using System;
+﻿using RestSharp;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,6 +6,12 @@ namespace DripDotNet
 {
     public partial class DripClient
     {
+        protected const string SubscribeToCampaignResource = "{accountId}/campaigns/{campaignId}/subscribers";
+        protected const string CampaignIdUrlSegmentKey = "campaignId";
+        protected const string CampaignIdQueryKey = CampaignIdUrlSegmentKey;
+        protected const string UnsubscribeFromCampaignResource = "/{accountId}/subscribers/{subscriberId}/unsubscribe";
+        protected const string SubscribersRequestBodyKey = "subscribers";
+
         /// <summary>
         /// Subscribe a Subscriber to a campaign.
         /// See: https://www.getdrip.com/docs/rest-api#subscribe
@@ -15,7 +21,7 @@ namespace DripDotNet
         /// <returns>A DripSubscribersResponse.</returns>
         public DripSubscribersResponse SubscribeToCampaign(string campaignId, ModifyDripCampaignSubscriberRequest campaignSubscriber)
         {
-            throw new NotImplementedException();
+            return PostResource<DripSubscribersResponse>(SubscribeToCampaignResource, SubscribersRequestBodyKey, new ModifyDripCampaignSubscriberRequest[] { campaignSubscriber }, CampaignIdUrlSegmentKey, campaignId);
         }
 
         /// <summary>
@@ -28,7 +34,7 @@ namespace DripDotNet
         /// <returns>A Task that, when completed, will contain a DripSubscribersResponse.</returns>
         public Task<DripSubscribersResponse> SubscribeToCampaignAsync(string campaignId, ModifyDripCampaignSubscriberRequest campaignSubscriber, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return PostResourceAsync<DripSubscribersResponse>(SubscribeToCampaignResource, SubscribersRequestBodyKey, new ModifyDripCampaignSubscriberRequest[] { campaignSubscriber }, cancellationToken, CampaignIdUrlSegmentKey, campaignId);
         }
 
         /// <summary>
@@ -40,7 +46,7 @@ namespace DripDotNet
         /// <returns>A DripSubscribersResponse.</returns>
         public DripSubscribersResponse UnsubscribeFromCampaign(string idOrEmail, string campaignId = null)
         {
-            throw new NotImplementedException();
+            return Execute<DripSubscribersResponse>(CreateUnsubscribeCampaignRequest(idOrEmail, campaignId));
         }
 
         /// <summary>
@@ -53,7 +59,15 @@ namespace DripDotNet
         /// <returns>A Task that, when completed, will contain a DripSubscribersResponse.</returns>
         public Task<DripSubscribersResponse> UnsubscribeFromCampaignAsync(string idOrEmail, string campaignId = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return ExecuteAsync<DripSubscribersResponse>(CreateUnsubscribeCampaignRequest(idOrEmail, campaignId), cancellationToken);
+        }
+
+        protected virtual IRestRequest CreateUnsubscribeCampaignRequest(string idOrEmail, string campaignId)
+        {
+            var req = CreatePostRequest(UnsubscribeFromCampaignResource, null, null, SubscriberIdUrlSegmentKey, idOrEmail);
+            if (campaignId != null)
+                req.AddQueryParameter(CampaignIdQueryKey, campaignId);
+            return req;
         }
     }
 }

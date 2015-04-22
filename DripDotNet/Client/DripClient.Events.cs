@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,6 +8,10 @@ namespace DripDotNet
 {
     public partial class DripClient
     {
+        protected const string TrackEventResource = "/{accountId}/events";
+        protected const string TrackEventsResource = "/{accountId}/events/batches";
+        protected const string EventsRequestBodyKey = "events";
+
         /// <summary>
         /// Track an event.
         /// See: https://www.getdrip.com/docs/rest-api#record_event
@@ -15,7 +20,7 @@ namespace DripDotNet
         /// <returns>On success, a DripResponse with StatusCode of Created.</returns>
         public DripResponse TrackEvent(DripEvent dripEvent)
         {
-            throw new NotImplementedException();
+            return PostResource<DripResponse>(TrackEventResource, EventsRequestBodyKey, new DripEvent[]{ dripEvent });
         }
 
         /// <summary>
@@ -27,7 +32,7 @@ namespace DripDotNet
         /// <returns>A Task that, when completed successfully, will contain a StatusCode of Created.</returns>
         public Task<DripResponse> TrackEventAsync(DripEvent dripEvent, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return PostResourceAsync<DripResponse>(TrackEventResource, EventsRequestBodyKey, new DripEvent[] { dripEvent }, cancellationToken);
         }
 
         /// <summary>
@@ -38,7 +43,7 @@ namespace DripDotNet
         /// <returns>On success, a DripResponse with StatusCode of Created.</returns>
         public DripResponse TrackEvents(IEnumerable<DripEvent> dripEvents)
         {
-            throw new NotImplementedException();
+            return PostResource<DripResponse>(TrackEventsResource, EventsRequestBodyKey, dripEvents.ToArray());
         }
 
         /// <summary>
@@ -50,7 +55,7 @@ namespace DripDotNet
         /// <returns>A Task that, when completed successfully, will contain a StatusCode of Created.</returns>
         public Task<DripResponse> TrackEventsAsync(IEnumerable<DripEvent> dripEvents, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return PostResourceAsync<DripResponse>(TrackEventsResource, EventsRequestBodyKey, dripEvents.ToArray(), cancellationToken);
         }
     }
 }

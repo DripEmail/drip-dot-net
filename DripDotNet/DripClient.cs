@@ -34,41 +34,57 @@ namespace DripDotNet
         }
 
         protected virtual TResponse GetResource<TResponse>(string resourceUrl, string urlSegmentKey, string urlSegmentValue)
-            where TResponse: DripResponse, new()
-        {
-            var req = new RestRequest(resourceUrl, Method.GET);
-            req.AddUrlSegment(urlSegmentKey, urlSegmentValue);
-            var resp = Client.Execute<TResponse>(req);
-            resp.Data.ProcessRestResponse(resp);
-            return resp.Data;
-        }
-
-        protected virtual async Task<TResponse> GetResourceAsync<TResponse>(string resourceUrl, string urlSegmentKey, string urlSegmentValue, CancellationToken cancellationToken)
             where TResponse : DripResponse, new()
         {
             var req = new RestRequest(resourceUrl, Method.GET);
             req.AddUrlSegment(urlSegmentKey, urlSegmentValue);
-            var resp = await Client.ExecuteTaskAsync<TResponse>(req, cancellationToken);
+            return Execute<TResponse>(req);
+        }
+
+        protected virtual Task<TResponse> GetResourceAsync<TResponse>(string resourceUrl, string urlSegmentKey, string urlSegmentValue, CancellationToken cancellationToken)
+            where TResponse : DripResponse, new()
+        {
+            var req = new RestRequest(resourceUrl, Method.GET);
+            req.AddUrlSegment(urlSegmentKey, urlSegmentValue);
+            return ExecuteAsync<TResponse>(req, cancellationToken);
+        }
+
+        protected virtual TResponse PostResource<TResponse>(string resourceUrl, string requestBodyKey, object requestBody, string urlSegmentKey = null, string urlSegmentValue = null)
+            where TResponse : DripResponse, new()
+        {
+            var req = CreatePostRequest(resourceUrl, requestBodyKey, requestBody, urlSegmentKey, urlSegmentValue);
+            return Execute<TResponse>(req);
+        }
+
+        protected virtual Task<TResponse> PostResourceAsync<TResponse>(string resourceUrl, string requestBodyKey, object requestBody, CancellationToken cancellationToken, string urlSegmentKey = null, string urlSegmentValue = null)
+            where TResponse : DripResponse, new()
+        {
+            var req = CreatePostRequest(resourceUrl, requestBodyKey, requestBody, urlSegmentKey, urlSegmentValue);
+            return ExecuteAsync<TResponse>(req, cancellationToken);
+        }
+
+        protected virtual IRestRequest CreatePostRequest(string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
+        {
+            var req = new RestRequest(resourceUrl, Method.POST);
+            if (requestBodyKey != null && requestBody != null)
+                req.AddJsonBody(new { requestBodyKey = requestBody });
+            if (urlSegmentKey != null && urlSegmentValue != null)
+                req.AddUrlSegment(urlSegmentKey, urlSegmentValue);
+            return req;
+        }
+
+        protected virtual TResponse Execute<TResponse>(IRestRequest request)
+            where TResponse : DripResponse, new()
+        {
+            var resp = Client.Execute<TResponse>(request);
             resp.Data.ProcessRestResponse(resp);
             return resp.Data;
         }
 
-        protected virtual TResponse PostResource<TResponse>(string resourceUrl, object requestBody)
+        protected virtual async Task<TResponse> ExecuteAsync<TResponse>(IRestRequest request, CancellationToken cancellationToken)
             where TResponse : DripResponse, new()
         {
-            var req = new RestRequest(resourceUrl, Method.POST);
-            req.AddJsonBody(requestBody);
-            var resp = Client.Execute<TResponse>(req);
-            resp.Data.ProcessRestResponse(resp);
-            return resp.Data;
-        }
-
-        protected virtual async Task<TResponse> PostResourceAsync<TResponse>(string resourceUrl, object requestBody, CancellationToken cancellationToken)
-            where TResponse : DripResponse, new()
-        {
-            var req = new RestRequest(resourceUrl, Method.POST);
-            req.AddJsonBody(requestBody);
-            var resp = await Client.ExecuteTaskAsync<TResponse>(req, cancellationToken);
+            var resp = await Client.ExecuteTaskAsync<TResponse>(request, cancellationToken);
             resp.Data.ProcessRestResponse(resp);
             return resp.Data;
         }
