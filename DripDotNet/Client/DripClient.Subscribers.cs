@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,6 +7,11 @@ namespace DripDotNet
 {
     public partial class DripClient
     {
+        protected const string FetchSubscriberResource = "{accountId}/subscribers/{subscriberId}";
+        protected const string CreateOrUpdateSubscriberResource = "{accountId}/subscribers";
+        protected const string CreateOrUpdateSubscribersBatchResource = "{accountId}/subscribers/batches";
+        protected const string SubscriberIdUrlSegmentKey = "subscriberId";
+
         /// <summary>
         /// Fetch a subscriber.
         /// See: https://www.getdrip.com/docs/rest-api#fetch_subscriber
@@ -15,7 +20,7 @@ namespace DripDotNet
         /// <returns>A DripSubscribersResponse.</returns>
         public DripSubscribersResponse GetSubscriber(string idOrEmail)
         {
-            throw new NotImplementedException();
+            return GetResource<DripSubscribersResponse>(FetchSubscriberResource, SubscriberIdUrlSegmentKey, idOrEmail);
         }
 
         /// <summary>
@@ -27,7 +32,7 @@ namespace DripDotNet
         /// <returns>A Task that, when completed, will contain a DripSubscribersResponse.</returns>
         public Task<DripSubscribersResponse> GetSubscriberAsync(string idOrEmail, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return GetResourceAsync<DripSubscribersResponse>(FetchSubscriberResource, SubscriberIdUrlSegmentKey, idOrEmail, cancellationToken);
         }
 
         /// <summary>
@@ -38,7 +43,7 @@ namespace DripDotNet
         /// <returns>A DripSubscribersResponse</returns>
         public DripSubscribersResponse CreateOrUpdateSubscriber(ModifyDripSubscriberRequest subscriber)
         {
-            throw new NotImplementedException();
+            return PostResource<DripSubscribersResponse>(CreateOrUpdateSubscriberResource, new ModifyDripSubscriberRequest[] { subscriber });
         }
 
         /// <summary>
@@ -50,7 +55,7 @@ namespace DripDotNet
         /// <returns>A Task that, when completed, will contain a DripSubscribersResponse.</returns>
         public Task<DripSubscribersResponse> CreateOrUpdateSubscriberAsync(ModifyDripSubscriberRequest subscriber, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return PostResourceAsync<DripSubscribersResponse>(CreateOrUpdateSubscriberResource, new ModifyDripSubscriberRequest[] { subscriber }, cancellationToken);
         }
 
         /// <summary>
@@ -64,7 +69,7 @@ namespace DripDotNet
         /// <returns>A DripResponse.</returns>
         public DripResponse CreateOrUpdateSubscribers(IEnumerable<ModifyDripSubscriberRequest> subscribers)
         {
-            throw new NotImplementedException();
+            return PostResource<DripResponse>(CreateOrUpdateSubscribersBatchResource, subscribers.ToArray());
         }
 
         /// <summary>
@@ -79,7 +84,7 @@ namespace DripDotNet
         /// <returns>A Task that, when completed, will contain a DripResponse.</returns>
         public Task<DripResponse> CreateOrUpdateSubscribersAsync(IEnumerable<ModifyDripSubscriberRequest> subscribers, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return PostResourceAsync<DripResponse>(CreateOrUpdateSubscribersBatchResource, subscribers.ToArray(), cancellationToken);
         }
     }
 
