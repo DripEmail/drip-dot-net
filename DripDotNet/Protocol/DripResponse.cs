@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RestSharp;
+using System.Collections.Generic;
 using System.Net;
 
 namespace DripDotNet
@@ -45,6 +46,13 @@ namespace DripDotNet
         public bool HasErrors()
         {
             return Errors != null && Errors.Count > 0;
+        }
+
+        internal protected virtual void ProcessRestResponse(IRestResponse restResponse)
+        {
+            if (restResponse == null) return;
+
+            StatusCode = restResponse.StatusCode;
         }
     }
 
