@@ -87,7 +87,7 @@ namespace Drip
         /// <summary>
         /// The subscriber's time zone (in Olsen format). Defaults to Etc/UTC
         /// </summary>
-        public string Timezone { get; set; }
+        public string TimeZone { get; set; }
 
         /// <summary>
         /// A dictionary containing custom field data. E.g. new Dictionary<string,string> { { "name" , "John Doe" } }
@@ -121,7 +121,7 @@ namespace Drip
         /// Optional. If true, the double opt-in confirmation email is sent; if false, 
         /// the confirmation email is skipped. Defaults to the value set on the campaign.
         /// </summary>
-        public bool? DoubleOptIn { get; set; }
+        public bool? DoubleOptin { get; set; }
 
         /// <summary>
         /// Optional. The index (zero-based) of the email to send first. Defaults to 0.
