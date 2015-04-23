@@ -117,7 +117,8 @@ within the Visual Studio solution.
 
 ## Known Issues
 
-	1. Async operations that return empty results do not report the correct StatusCode on the DripResponse.
+	1. Async operations that return empty results do not report the correct StatusCode on the DripResponse. This causes the associated integration tests to fail.
 		a. ApplyTagToSubscriberAsync
 		b. RemoveTagFromSubscriberAsync
-		b. CreateOrUpdateSubscribersAsync
+		c. CreateOrUpdateSubscribersAsync
+		d. TrackEventsAsync
