@@ -14,13 +14,19 @@ namespace DropDotNetTests
         DripClientFixture dripClientFixture;
         SubscriberFactoryFixture subscriberFactoryFixture;
 
+        public SubscriberTests(DripClientFixture dripClientFixture, SubscriberFactoryFixture subscriberFactoryFixture)
+        {
+            this.dripClientFixture = dripClientFixture;
+            this.subscriberFactoryFixture = subscriberFactoryFixture;
+        }
+
         [Fact]
         public void CanCreateUpdateAndRetrieveSubscriber()
         {
             var expected = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
 
             var result = dripClientFixture.Client.CreateOrUpdateSubscriber(expected);
-            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             Assert.True(result.HasSuccessStatusCode());
             Assert.False(result.HasErrors());
 
@@ -61,7 +67,7 @@ namespace DropDotNetTests
             var expected = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
 
             var result = await dripClientFixture.Client.CreateOrUpdateSubscriberAsync(expected);
-            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             Assert.True(result.HasSuccessStatusCode());
             Assert.False(result.HasErrors());
 

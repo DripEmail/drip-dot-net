@@ -1,4 +1,6 @@
 ﻿using RestSharp;
+using RestSharp.Deserializers;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,7 +28,7 @@ namespace Drip
         {
         }
 
-        public DripClient(string accountId = null, string apiKey = null, string accessToken = null)
+        public DripClient(string apiKey = null, string accountId = null, string accessToken = null)
         {
             ApiKey = apiKey;
             AccountId = accountId;
@@ -69,7 +71,7 @@ namespace Drip
             req.JsonSerializer = new RestSharpLcaseUnderscoreSerializer();
 
             if (requestBodyKey != null && requestBody != null)
-                req.AddJsonBody(new { requestBodyKey = requestBody });
+                req.AddJsonBody(new Dictionary<string, object> { {requestBodyKey, requestBody} });
             if (urlSegmentKey != null && urlSegmentValue != null)
                 req.AddUrlSegment(urlSegmentKey, urlSegmentValue);
             return req;
@@ -95,9 +97,9 @@ namespace Drip
         {
             var client = new RestClient(BaseUrl);
             client.AddDefaultHeader("Content-Type", "application/vnd.api+json");
-            client.AddDefaultHeader("Accept", "*/*");
             client.UserAgent = "Drip DotNet v#" + typeof(DripClient).Assembly.GetName().Version.ToString();
             client.AddDefaultUrlSegment("accountId", AccountId);
+            client.AddHandler("application/vnd.api+json", new JsonDeserializer());
 
             if (string.IsNullOrEmpty(AccessToken))
                 client.Authenticator = new HttpBasicAuthenticator(ApiKey, string.Empty);

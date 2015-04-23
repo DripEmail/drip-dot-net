@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace DropDotNetTests
 {
-    public class SubscriberFactoryFixture
+    public class SubscriberFactoryFixture: IDisposable
     {
+        public SubscriberFactoryFixture() { }
+
         public string GetRandomEmailAddress()
         {
-            return Guid.NewGuid().ToString("n") + "@" + Guid.NewGuid().ToString("n") + ".com";
+            return Guid.NewGuid().ToString("n") + "@getdriptest.com";
         }
 
         public ModifyDripSubscriberRequest CreateComplexUniqueModifyDripSubscriber()
@@ -30,6 +32,10 @@ namespace DropDotNetTests
             };
 
             return result;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
