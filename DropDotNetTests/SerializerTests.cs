@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DropDotNetTests
+namespace DripDotNetTests
 {
     public class SerializerTests
     {
         [Fact]
-        public void LcaseUnderscoreMappingResolverSmoke()
+        public void LcaseUnderscoreMappingResolverBasicallyWorks()
         {
             var resolver = new LcaseUnderscoreMappingResolver();
             var expected = "test_test_test";
@@ -28,7 +28,7 @@ namespace DropDotNetTests
         }
 
         [Fact]
-        public void RestSharpLcaseUnderscoreSerializerSmoke()
+        public void RestSharpLcaseUnderscoreSerializerBasicallyWorks()
         {
             var serializer = new RestSharpLcaseUnderscoreSerializer();
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DropDotNetTests
+namespace DripDotNetTests
 {
     public class SubscriberFactoryFixture: IDisposable
     {

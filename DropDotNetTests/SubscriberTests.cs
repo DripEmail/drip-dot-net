@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DropDotNetTests
+namespace DripDotNetTests
 {
     public class SubscriberTests : IClassFixture<DripClientFixture>, IClassFixture<SubscriberFactoryFixture>
     {

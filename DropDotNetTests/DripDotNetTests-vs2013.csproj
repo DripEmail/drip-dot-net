@@ -9,8 +9,8 @@
     <ProjectGuid>{ADA31E20-9A05-4C22-86E6-C1DD2EA1BEC7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DropDotNetTests</RootNamespace>
-    <AssemblyName>DropDotNetTests</AssemblyName>
+    <RootNamespace>DripDotNetTests</RootNamespace>
+    <AssemblyName>DripDotNetTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>97e2efd9</NuGetPackageImportStamp>
@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="DripAssert.cs" />
     <Compile Include="DripClientFixture.cs" />
+    <Compile Include="EventTests.cs" />
     <Compile Include="SerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubscriberFactoryFixture.cs" />
