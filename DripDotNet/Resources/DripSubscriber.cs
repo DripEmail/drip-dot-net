@@ -21,7 +21,7 @@ namespace Drip
         public string Timezone { get; set; }
 
         /// <summary>
-        /// A dictionary containing custom field data. E.g. new Dictionary<string,string> { { "name" , "John Doe" } }
+        /// A dictionary containing custom field data. E.g. new Dictionary&lt;string,string&gt; { { "name" , "John Doe" } }
         /// </summary>
         [JsonConverter(typeof(UntouchableKeysConverter))]
         public Dictionary<string, string> CustomFields { get; set; }
@@ -90,7 +90,7 @@ namespace Drip
         public string TimeZone { get; set; }
 
         /// <summary>
-        /// A dictionary containing custom field data. E.g. new Dictionary<string,string> { { "name" , "John Doe" } }
+        /// A dictionary containing custom field data. E.g. new Dictionary&lt;string,string&gt; { { "name" , "John Doe" } }
         /// </summary>
         [JsonConverter(typeof(UntouchableKeysConverter))]
         public Dictionary<string, string> CustomFields { get; set; }

@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CampaignTests.cs" />
     <Compile Include="DripAssert.cs" />
     <Compile Include="DripClientFixture.cs" />
     <Compile Include="EventTests.cs" />
