@@ -114,3 +114,8 @@ will get exceptions.
 
 XUnit is used for testing. Install the xunit test runner to easily run from 
 within the Visual Studio solution.
+
+## Known Issues
+
+	1. Batch async operations (such as adding multiple subscribers or events) do not report the correct StatusCode.
+

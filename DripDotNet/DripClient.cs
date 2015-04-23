@@ -1,6 +1,8 @@
-﻿using RestSharp;
+﻿using Drip.Protocol;
+using RestSharp;
 using RestSharp.Deserializers;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,6 +10,8 @@ namespace Drip
 {
     public partial class DripClient
     {
+        protected const string BatchRequestBodyKey = "batches";
+
         public const string BaseUrl = "https://api.getdrip.com/v2/";
         public string ApiKey { get; set; }
         public string AccessToken { get; set; }
@@ -65,13 +69,29 @@ namespace Drip
             return ExecuteAsync<TResponse>(req, cancellationToken);
         }
 
+        protected virtual TResponse PostBatchResource<TResponse, TData>(string resourceUrl, string key, TData data)
+            where TResponse : DripResponse, new()
+        {
+            var body = new Dictionary<string, TData>[] { new Dictionary<string, TData> { { key, data } } };
+            var req = CreatePostRequest(resourceUrl, BatchRequestBodyKey, body);
+            return Execute<TResponse>(req);
+        }
+
+        protected virtual Task<TResponse> PostBatchResourceAsync<TResponse, TData>(string resourceUrl, string key, TData data, CancellationToken cancellationToken)
+            where TResponse : DripResponse, new()
+        {
+            var body = new Dictionary<string, TData>[] { new Dictionary<string, TData> { { key, data } } };
+            var req = CreatePostRequest(resourceUrl, BatchRequestBodyKey, body);
+            return ExecuteAsync<TResponse>(req, cancellationToken);
+        }
+
         protected virtual IRestRequest CreatePostRequest(string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
         {
             var req = new RestRequest(resourceUrl, Method.POST);
             req.JsonSerializer = new RestSharpLcaseUnderscoreSerializer();
 
             if (requestBodyKey != null && requestBody != null)
-                req.AddJsonBody(new Dictionary<string, object> { {requestBodyKey, requestBody} });
+                req.AddJsonBody(new Dictionary<string, object> { { requestBodyKey, requestBody } });
             if (urlSegmentKey != null && urlSegmentValue != null)
                 req.AddUrlSegment(urlSegmentKey, urlSegmentValue);
             return req;
@@ -81,16 +101,31 @@ namespace Drip
             where TResponse : DripResponse, new()
         {
             var resp = Client.Execute<TResponse>(request);
-            resp.Data.ProcessRestResponse(resp);
-            return resp.Data;
+            var result = resp.Data ?? new TResponse();
+            result.ProcessRestResponse(request, resp);
+            return result;
         }
 
         protected virtual async Task<TResponse> ExecuteAsync<TResponse>(IRestRequest request, CancellationToken cancellationToken)
             where TResponse : DripResponse, new()
         {
-            var resp = await Client.ExecuteTaskAsync<TResponse>(request, cancellationToken);
-            resp.Data.ProcessRestResponse(resp);
-            return resp.Data;
+            TResponse result;
+            try
+            {
+                var resp = await Client.ExecuteTaskAsync<TResponse>(request, cancellationToken);
+                result = resp.Data ?? new TResponse();
+                result.ProcessRestResponse(request, resp);
+            } 
+            catch (SerializationException ex)
+            {
+                //The RestSharp async interface throws this exception if the content is not json
+                //While the sync one simply records it on the resp object...
+                //TODO: File bug with RestSharp
+                result = new TResponse();
+                result.ProcessRestResponse(request, null);
+            }
+
+            return result;
         }
 
         protected virtual RestClient CreateRestClient()

@@ -21,16 +21,25 @@ namespace DropDotNetTests
             var result = new ModifyDripSubscriberRequest
             {
                 Email = GetRandomEmailAddress(),
-                CustomFields = new Dictionary<string, object>
+                CustomFields = new Dictionary<string, string>
                 { 
+                    {"id", Guid.NewGuid().ToString("n")},
                     {"Name", "Foo Example"},
-                    {"SomeDate", DateTime.UtcNow},
-                    {"AnInt", 123},
+                    {"SomeDate", DateTime.UtcNow.ToString("o")},
+                    {"AnIntSorta_kinda", "123"},
                 },
                 PotentialLead = true,
                 Tags = new List<string> { Guid.NewGuid().ToString("n"), "test" }
             };
 
+            return result;
+        }
+
+        public ModifyDripSubscriberRequest[] CreateComplexUniqueModifyDripSubscribers(int count)
+        {
+            var result = new ModifyDripSubscriberRequest[count];
+            for (var i = 0; i < result.Length; i++)
+                result[i] = CreateComplexUniqueModifyDripSubscriber();
             return result;
         }
 

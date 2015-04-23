@@ -43,7 +43,7 @@ namespace Drip
         /// <returns>On success, a DripResponse with StatusCode of Created.</returns>
         public DripResponse TrackEvents(IEnumerable<DripEvent> dripEvents)
         {
-            return PostResource<DripResponse>(TrackEventsResource, EventsRequestBodyKey, dripEvents.ToArray());
+            return PostBatchResource<DripResponse, DripEvent[]>(TrackEventsResource, EventsRequestBodyKey, dripEvents.ToArray());
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Drip
         /// <returns>A Task that, when completed successfully, will contain a StatusCode of Created.</returns>
         public Task<DripResponse> TrackEventsAsync(IEnumerable<DripEvent> dripEvents, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return PostResourceAsync<DripResponse>(TrackEventsResource, EventsRequestBodyKey, dripEvents.ToArray(), cancellationToken);
+            return PostBatchResourceAsync<DripResponse, DripEvent[]>(TrackEventsResource, EventsRequestBodyKey, dripEvents.ToArray(), cancellationToken);
         }
     }
 }

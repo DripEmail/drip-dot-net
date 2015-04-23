@@ -38,6 +38,18 @@ namespace Drip
         public List<DripError> Errors { get; set; }
 
         /// <summary>
+        /// The underlying response that was received.
+        /// You shouldn't need to use this, but it might be helpful for debugging.
+        /// </summary>
+        public IRestResponse OriginalResponse { get; set; }
+
+        /// <summary>
+        /// The underlying request that was sent
+        /// You shouldn't need to use this, but it might be helpful for debugging.
+        /// </summary>
+        public IRestRequest OriginalRequest { get; set; }
+
+        /// <summary>
         /// A quick way to check if this DripResponse contains errors.
         /// This library does not throw exceptions for application level errors returned by the REST API.
         /// Check the Errors collection for details on response errors.
@@ -53,8 +65,11 @@ namespace Drip
             return (int)StatusCode < 400 && !HasErrors();
         }
 
-        internal protected virtual void ProcessRestResponse(IRestResponse restResponse)
+        internal protected virtual void ProcessRestResponse(IRestRequest restRequest, IRestResponse restResponse)
         {
+            OriginalRequest = restRequest;
+            OriginalResponse = restResponse;
+
             if (restResponse == null) return;
 
             StatusCode = restResponse.StatusCode;

@@ -69,7 +69,7 @@ namespace Drip
         /// <returns>A DripResponse.</returns>
         public DripResponse CreateOrUpdateSubscribers(IEnumerable<ModifyDripSubscriberRequest> subscribers)
         {
-            return PostResource<DripResponse>(CreateOrUpdateSubscribersBatchResource, SubscribersRequestBodyKey, subscribers.ToArray());
+            return PostBatchResource<DripResponse, ModifyDripSubscriberRequest[]>(CreateOrUpdateSubscribersBatchResource, SubscribersRequestBodyKey, subscribers.ToArray());
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Drip
         /// <returns>A Task that, when completed, will contain a DripResponse.</returns>
         public Task<DripResponse> CreateOrUpdateSubscribersAsync(IEnumerable<ModifyDripSubscriberRequest> subscribers, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return PostResourceAsync<DripResponse>(CreateOrUpdateSubscribersBatchResource, SubscribersRequestBodyKey, subscribers.ToArray(), cancellationToken);
+            return PostBatchResourceAsync<DripResponse, ModifyDripSubscriberRequest[]>(CreateOrUpdateSubscribersBatchResource, SubscribersRequestBodyKey, subscribers.ToArray(), cancellationToken);
         }
     }
 }

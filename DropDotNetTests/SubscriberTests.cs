@@ -37,9 +37,8 @@ namespace DropDotNetTests
             Assert.Equal(1, result.Subscribers.Count);
 
             var actual = result.Subscribers.First();
-            Assert.Equal(expected.CustomFields, actual.CustomFields);
-            Assert.Equal(expected.Tags, actual.Tags);
-            Assert.Equal(expected.PotentialLead, actual.PotentialLead);
+            DripAssert.Equal(expected.CustomFields, actual.CustomFields);
+            DripAssert.ContainsSameItems(expected.Tags, actual.Tags);
 
             var oldEmail = expected.Email;
             expected.NewEmail = subscriberFactoryFixture.GetRandomEmailAddress();
@@ -55,9 +54,8 @@ namespace DropDotNetTests
 
             actual = result.Subscribers.First();
             Assert.Equal(expected.NewEmail, actual.Email);
-            Assert.Equal(expected.CustomFields, actual.CustomFields);
-            Assert.Equal(expected.Tags, actual.Tags);
-            Assert.Equal(expected.PotentialLead, actual.PotentialLead);
+            DripAssert.Equal(expected.CustomFields, actual.CustomFields);
+            DripAssert.ContainsSameItems(expected.Tags, actual.Tags);
 
         }
 
@@ -79,9 +77,8 @@ namespace DropDotNetTests
 
             var actual = result.Subscribers.First();
             Assert.Equal(expected.Email, actual.Email);
-            Assert.Equal(expected.CustomFields, actual.CustomFields);
-            Assert.Equal(expected.Tags, actual.Tags);
-            Assert.Equal(expected.PotentialLead, actual.PotentialLead);
+            DripAssert.Equal(expected.CustomFields, actual.CustomFields);
+            DripAssert.ContainsSameItems(expected.Tags, actual.Tags);
 
             var oldEmail = expected.Email;
             expected.NewEmail = subscriberFactoryFixture.GetRandomEmailAddress();
@@ -97,9 +94,8 @@ namespace DropDotNetTests
 
             actual = result.Subscribers.First();
             Assert.Equal(expected.NewEmail, actual.Email);
-            Assert.Equal(expected.CustomFields, actual.CustomFields);
-            Assert.Equal(expected.Tags, actual.Tags);
-            Assert.Equal(expected.PotentialLead, actual.PotentialLead);
+            DripAssert.Equal(expected.CustomFields, actual.CustomFields);
+            DripAssert.ContainsSameItems(expected.Tags, actual.Tags);
         }
 
         [Fact]
@@ -122,6 +118,29 @@ namespace DropDotNetTests
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
             Assert.False(result.HasSuccessStatusCode());
             Assert.True(result.HasErrors());
+        }
+
+        [Fact]
+        public void CanBulkInsertSubscribers()
+        {
+            var actual = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscribers(23);
+            var result = dripClientFixture.Client.CreateOrUpdateSubscribers(actual);
+            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
+            Assert.True(result.HasSuccessStatusCode());
+            Assert.False(result.HasErrors());
+        }
+
+        [Fact]
+        public async Task CanBulkInsertSubscribersAsync()
+        {
+            var actual = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscribers(29);
+            var result = await dripClientFixture.Client.CreateOrUpdateSubscribersAsync(actual);
+            //TODO: Fix server and/or RestSharp
+            //This operation succeeds, but it looks like the server returns a content-type of json with a non-empty, but non-JSON result.
+            //This causes RestSharp to try to parse the body, which isn't empty, as JSON, which throws an error.
+            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
+            Assert.True(result.HasSuccessStatusCode());
+            Assert.False(result.HasErrors());
         }
     }
 }

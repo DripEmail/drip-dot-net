@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DripAssert.cs" />
     <Compile Include="DripClientFixture.cs" />
     <Compile Include="SerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

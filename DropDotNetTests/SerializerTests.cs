@@ -1,4 +1,5 @@
 ﻿using Drip;
+using Drip.Protocol;
 using System;
 using System.Collections.Generic;
 using Xunit;

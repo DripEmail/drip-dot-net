@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Drip.Protocol;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace Drip
 {
@@ -18,14 +21,90 @@ namespace Drip
         public string Timezone { get; set; }
 
         /// <summary>
-        /// A dictionary containing custom field data. E.g. new Dictionary<string,object> { { "name" , "John Doe" } }
+        /// A dictionary containing custom field data. E.g. new Dictionary<string,string> { { "name" , "John Doe" } }
         /// </summary>
-        public Dictionary<string, object> CustomFields { get; set; }
+        [JsonConverter(typeof(UntouchableKeysConverter))]
+        public Dictionary<string, string> CustomFields { get; set; }
 
         /// <summary>
         /// A list containing one or more tags. E.g. ["Customer", "SEO"].
         /// </summary>
         public List<string> Tags { get; set; }
+
+        /// <summary>
+        /// The subscriber's Unique ID. This can be used in place of an email address on some API calls.
+        /// </summary>
+        public string ID { get; set; }
+
+        /// <summary>
+        /// The subscriber's status (i.e. "active")
+        /// </summary>
+        public string Status { get; set; }
+
+        /// <summary>
+        /// The subscriber's local timezone utc offset as reported by their browser.
+        /// </summary>
+        public int? UtcOffset { get; set; }
+
+        /// <summary>
+        /// The Uuid of the visitor.
+        /// </summary>
+        public string VisitorUuid { get; set; }
+
+        /// <summary>
+        /// The IP Address used by the subscriber to access your site.
+        /// </summary>
+        public string IpAddress { get; set; }
+
+        /// <summary>
+        /// The user agent of the subscriber's web browser.
+        /// </summary>
+        public string UserAgent { get; set; }
+
+        /// <summary>
+        /// The Url that originally referred the subscriber to your site.
+        /// </summary>
+        public string OriginalReferrer { get; set; }
+
+        /// <summary>
+        /// When this subscriber was created in Drip.
+        /// </summary>
+        public DateTime? CreatedAt { get; set; }
+
+        /// <summary>
+        /// The REST endpoint that can be used to retrieve the subscriber.
+        /// </summary>
+        public string Href { get; set; }
+    }
+
+    public class ModifyDripSubscriberRequest
+    {
+        /// <summary>
+        /// The subscriber's email address.
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// The subscriber's time zone (in Olsen format). Defaults to Etc/UTC
+        /// </summary>
+        public string Timezone { get; set; }
+
+        /// <summary>
+        /// A dictionary containing custom field data. E.g. new Dictionary<string,string> { { "name" , "John Doe" } }
+        /// </summary>
+        [JsonConverter(typeof(UntouchableKeysConverter))]
+        public Dictionary<string, string> CustomFields { get; set; }
+
+        /// <summary>
+        /// A list containing one or more tags. E.g. ["Customer", "SEO"].
+        /// </summary>
+        public List<string> Tags { get; set; }
+
+        /// <summary>
+        /// Optional. A new email address for the subscriber. If provided and a subscriber
+        /// with the email does not exist, this address will be used to create a new subscriber.
+        /// </summary>
+        public string NewEmail { get; set; }
 
         /// <summary>
         /// A Boolean specifiying whether we should attach a lead score to the
@@ -36,16 +115,7 @@ namespace Drip
         public bool? PotentialLead { get; set; }
     }
 
-    public class ModifyDripSubscriberRequest : DripSubscriber
-    {
-        /// <summary>
-        /// Optional. A new email address for the subscriber. If provided and a subscriber
-        /// with the email does not exist, this address will be used to create a new subscriber.
-        /// </summary>
-        public string NewEmail { get; set; }
-    }
-
-    public class ModifyDripCampaignSubscriberRequest : DripSubscriber
+    public class ModifyDripCampaignSubscriberRequest : ModifyDripSubscriberRequest
     {
         /// <summary>
         /// Optional. If true, the double opt-in confirmation email is sent; if false, 

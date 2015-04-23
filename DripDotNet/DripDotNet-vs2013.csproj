@@ -55,6 +55,7 @@
     <Compile Include="Protocol\DripMeta.cs" />
     <Compile Include="Protocol\DripResponse.cs" />
     <Compile Include="Protocol\RestSharpLcaseUnderscoreSerializer.cs" />
+    <Compile Include="Protocol\UntouchableKeysConverter.cs" />
     <Compile Include="Resources\DripError.cs" />
     <Compile Include="Resources\DripEvent.cs" />
     <Compile Include="Resources\DripSubscriber.cs" />

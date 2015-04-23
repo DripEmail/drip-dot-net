@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Drip
+namespace Drip.Protocol
 {
     /// <summary>
     /// A serializer based on the one from this blog: http://blog.patrickmriley.net/2014/02/restsharp-using-jsonnet-serializer.html
