@@ -92,7 +92,7 @@ Debug.WriteLine("Did it work? " + resp.HasSuccessStatusCode());
 //# Did it work? true
 
 var subscriber = resp.Subscribers.First()
-Debug.WriteLine("Subscriber Email: " + subscriber.email);
+Debug.WriteLine("Subscriber Email: " + subscriber.Email);
 //# Subscriber Email: foo@example.com
 ```
 
@@ -114,6 +114,9 @@ will get exceptions.
 
 XUnit is used for testing. Install the xunit test runner to easily run from 
 within the Visual Studio solution.
+
+Since we do not yet support creating campaigns via API there is a TestCampaignId
+constant in the CampaignTests.
 
 ## Known Issues
 
