@@ -23,7 +23,6 @@ Build the DripDotNet-vs2013 project in Release or Debug mode.
 
 Reference the DripDotNet.dll and RestSharp.dll in your .NET 4.5 project.
 
-
 ## Usage
 
 Your account ID can be found [here](https://www.getdrip.com/settings/site).
@@ -103,3 +102,15 @@ Debug.WriteLine("Subscriber Email: " + subscriber.email);
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
+
+## Testing
+
+In order to run the tests you need to set two environment variables or you 
+will get exceptions.
+
+	DRIP_API_KEY="YOUR_API_KEY"
+	DRIP_ACCOUNT_ID="YOUR_ACCOUNT_ID"
+
+XUnit is used for testing. Install the xunit test runner to easily run from 
+within the Visual Studio solution.
