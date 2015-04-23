@@ -26,14 +26,10 @@ namespace DropDotNetTests
             var expected = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
 
             var result = dripClientFixture.Client.CreateOrUpdateSubscriber(expected);
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            Assert.True(result.HasSuccessStatusCode());
-            Assert.False(result.HasErrors());
+            DripAssert.Success(result, HttpStatusCode.OK);
 
             result = dripClientFixture.Client.GetSubscriber(expected.Email);
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            Assert.True(result.HasSuccessStatusCode());
-            Assert.False(result.HasErrors());
+            DripAssert.Success(result, HttpStatusCode.OK);
             Assert.Equal(1, result.Subscribers.Count);
 
             var actual = result.Subscribers.First();
@@ -47,9 +43,7 @@ namespace DropDotNetTests
             Assert.False(result.HasErrors());
 
             result = dripClientFixture.Client.GetSubscriber(expected.NewEmail);
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            Assert.True(result.HasSuccessStatusCode());
-            Assert.False(result.HasErrors());
+            DripAssert.Success(result, HttpStatusCode.OK);
             Assert.Equal(1, result.Subscribers.Count);
 
             actual = result.Subscribers.First();
@@ -65,14 +59,10 @@ namespace DropDotNetTests
             var expected = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
 
             var result = await dripClientFixture.Client.CreateOrUpdateSubscriberAsync(expected);
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            Assert.True(result.HasSuccessStatusCode());
-            Assert.False(result.HasErrors());
+            DripAssert.Success(result, HttpStatusCode.OK);
 
             result = await dripClientFixture.Client.GetSubscriberAsync(expected.Email);
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            Assert.True(result.HasSuccessStatusCode());
-            Assert.False(result.HasErrors());
+            DripAssert.Success(result, HttpStatusCode.OK);
             Assert.Equal(1, result.Subscribers.Count);
 
             var actual = result.Subscribers.First();
@@ -87,9 +77,7 @@ namespace DropDotNetTests
             Assert.False(result.HasErrors());
 
             result = await dripClientFixture.Client.GetSubscriberAsync(expected.NewEmail);
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            Assert.True(result.HasSuccessStatusCode());
-            Assert.False(result.HasErrors());
+            DripAssert.Success(result, HttpStatusCode.OK);
             Assert.Equal(1, result.Subscribers.Count);
 
             actual = result.Subscribers.First();
@@ -125,9 +113,7 @@ namespace DropDotNetTests
         {
             var actual = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscribers(23);
             var result = dripClientFixture.Client.CreateOrUpdateSubscribers(actual);
-            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
-            Assert.True(result.HasSuccessStatusCode());
-            Assert.False(result.HasErrors());
+            DripAssert.Success(result, HttpStatusCode.Created);
         }
 
         [Fact]
@@ -138,9 +124,7 @@ namespace DropDotNetTests
             //TODO: Fix server and/or RestSharp
             //This operation succeeds, but it looks like the server returns a content-type of json with a non-empty, but non-JSON result.
             //This causes RestSharp to try to parse the body, which isn't empty, as JSON, which throws an error.
-            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
-            Assert.True(result.HasSuccessStatusCode());
-            Assert.False(result.HasErrors());
+            DripAssert.Success(result, HttpStatusCode.Created);
         }
     }
 }

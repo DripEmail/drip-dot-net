@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Drip;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -38,6 +40,13 @@ namespace DropDotNetTests
             }
 
             Assert.Equal(expectedCount, actualList.Count);
+        }
+
+        internal static void Success(DripResponse resp, HttpStatusCode expectedStatus=HttpStatusCode.OK)
+        {
+            Assert.Equal(expectedStatus, resp.StatusCode);
+            Assert.True(resp.HasSuccessStatusCode());
+            Assert.False(resp.HasErrors());
         }
     }
 }

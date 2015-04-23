@@ -64,7 +64,7 @@ namespace Drip
 
         protected virtual IRestRequest CreateRemoveTagFromSubscriberRequest(string email, string tag)
         {
-            var req = CreatePostRequest(RemoveTagFromSubscriberResource, null, null, SubscriberIdUrlSegmentKey, email);
+            var req = CreateRequest(Method.DELETE, RemoveTagFromSubscriberResource, null, null, SubscriberIdUrlSegmentKey, email);
             if (tag != null)
                 req.AddUrlSegment(TagUrlSegmentKey, tag);
             return req;
