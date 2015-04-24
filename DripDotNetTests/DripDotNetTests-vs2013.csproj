@@ -68,6 +68,7 @@
     <Compile Include="TagTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="DripDotNet.licenseheader" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

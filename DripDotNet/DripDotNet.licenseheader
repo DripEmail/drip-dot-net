@@ -1,4 +1,6 @@
-﻿/*
+extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+/*
  The MIT License (MIT)
  
  Copyright (c) 2015 Drip
@@ -21,19 +23,3 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 */
-
-namespace Drip
-{
-    public class DripTag
-    {
-        /// <summary>
-        /// The subscriber's email address.
-        /// </summary>
-        public string Email { get; set; }
-
-        /// <summary>
-        /// The String tag to apply. E.g. "Customer".
-        /// </summary>
-        public string Tag { get; set; }
-    }
-}
