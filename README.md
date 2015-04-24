@@ -117,11 +117,3 @@ within the Visual Studio solution.
 
 Since we do not yet support creating campaigns via API there is a TestCampaignId
 constant in the CampaignTests.
-
-## Known Issues
-
-	1. Async operations that return empty results do not report the correct StatusCode on the DripResponse. This causes the associated integration tests to fail.
-		a. ApplyTagToSubscriberAsync
-		b. RemoveTagFromSubscriberAsync
-		c. CreateOrUpdateSubscribersAsync
-		d. TrackEventsAsync
