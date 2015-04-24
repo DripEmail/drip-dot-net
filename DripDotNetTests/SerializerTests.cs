@@ -25,6 +25,7 @@ using Drip;
 using Drip.Protocol;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Xunit;
 
 namespace DripDotNetTests
@@ -65,7 +66,7 @@ namespace DripDotNetTests
             };
 
             var actualString = serializer.Serialize(sourceObj);
-            var expectedString = string.Format("{{\"test\":\"abc\",\"testing_part_deux\":2,\"nested_list\":[],\"its_now\":\"{0:o}\"}}", sourceObj.ItsNow);
+            var expectedString = string.Format("{{\"test\":\"abc\",\"testing_part_deux\":2,\"nested_list\":[],\"its_now\":\"{0}\"}}", sourceObj.ItsNow.Value.ToString(@"yyyy-MM-dd\THH:mm:ss.FFFFFFF\Z", CultureInfo.InvariantCulture));
 
             Assert.Equal(expectedString, actualString);
         }

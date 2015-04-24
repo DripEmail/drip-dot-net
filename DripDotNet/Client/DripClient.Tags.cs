@@ -45,7 +45,10 @@ namespace Drip
         /// <returns>On success, a DripResponse with StatusCode of Created.</returns>
         public DripResponse ApplyTagToSubscriber(string email, string tag)
         {
-            return PostResource<DripResponse>(ApplyTagToSubscriberResource, TagsRequestBodyKey, new DripTag[] { new DripTag { Email = email, Tag = tag } });
+            //This doesn't use a PostResource overload because specifying a return type causes an error
+            var req = CreatePostRequest(ApplyTagToSubscriberResource, TagsRequestBodyKey, new DripTag[] { new DripTag { Email = email, Tag = tag } });
+            var resp = Client.Execute(req);
+            return DripResponse.FromRequestResponse(req, resp);
         }
 
         /// <summary>
@@ -56,9 +59,12 @@ namespace Drip
         /// <param name="tag">The tag to apply. E.g. "Customer"</param>
         /// <param name="cancellationToken">The CancellationToken to be used to cancel the request.</param>
         /// <returns>A Task that, when completed successfully, will contain a StatusCode of NoContent.</returns>
-        public Task<DripResponse> ApplyTagToSubscriberAsync(string email, string tag, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<DripResponse> ApplyTagToSubscriberAsync(string email, string tag, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return PostResourceAsync<DripResponse>(ApplyTagToSubscriberResource, TagsRequestBodyKey, new DripTag[] { new DripTag { Email = email, Tag = tag } }, cancellationToken);
+            //This doesn't use a PostResource overload because specifying a return type causes an error
+            var req = CreatePostRequest(ApplyTagToSubscriberResource, TagsRequestBodyKey, new DripTag[] { new DripTag { Email = email, Tag = tag } });
+            var resp = await Client.ExecuteTaskAsync(req, cancellationToken);
+            return DripResponse.FromRequestResponse(req, resp);
         }
 
         /// <summary>

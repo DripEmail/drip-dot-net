@@ -92,9 +92,6 @@ namespace DripDotNetTests
             DripAssert.Success(result, HttpStatusCode.NoContent);
         }
 
-
-
-
         [Fact]
         public async Task CanApplyAndRemoveTagsAsync()
         {

@@ -93,20 +93,20 @@ namespace Drip
             return ExecuteAsync<TResponse>(req, cancellationToken);
         }
 
-        protected virtual TResponse PostBatchResource<TResponse, TData>(string resourceUrl, string key, TData data)
-            where TResponse : DripResponse, new()
+        protected virtual DripResponse PostBatchResource<TData>(string resourceUrl, string key, TData data)
         {
             var body = new Dictionary<string, TData>[] { new Dictionary<string, TData> { { key, data } } };
             var req = CreatePostRequest(resourceUrl, BatchRequestBodyKey, body);
-            return Execute<TResponse>(req);
+            var resp = Client.Execute(req);
+            return DripResponse.FromRequestResponse(req, resp);
         }
 
-        protected virtual Task<TResponse> PostBatchResourceAsync<TResponse, TData>(string resourceUrl, string key, TData data, CancellationToken cancellationToken)
-            where TResponse : DripResponse, new()
+        protected async virtual Task<DripResponse> PostBatchResourceAsync<TData>(string resourceUrl, string key, TData data, CancellationToken cancellationToken)
         {
             var body = new Dictionary<string, TData>[] { new Dictionary<string, TData> { { key, data } } };
             var req = CreatePostRequest(resourceUrl, BatchRequestBodyKey, body);
-            return ExecuteAsync<TResponse>(req, cancellationToken);
+            var resp = await Client.ExecuteTaskAsync(req, cancellationToken);
+            return DripResponse.FromRequestResponse(req, resp);
         }
 
         protected virtual IRestRequest CreatePostRequest(string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
@@ -130,31 +130,14 @@ namespace Drip
             where TResponse : DripResponse, new()
         {
             var resp = Client.Execute<TResponse>(request);
-            var result = resp.Data ?? new TResponse();
-            result.ProcessRestResponse(request, resp);
-            return result;
+            return DripResponse.FromRequestResponse<TResponse>(request, resp);
         }
 
         protected virtual async Task<TResponse> ExecuteAsync<TResponse>(IRestRequest request, CancellationToken cancellationToken)
             where TResponse : DripResponse, new()
         {
-            TResponse result;
-            try
-            {
-                var resp = await Client.ExecuteTaskAsync<TResponse>(request, cancellationToken);
-                result = resp.Data ?? new TResponse();
-                result.ProcessRestResponse(request, resp);
-            } 
-            catch (SerializationException ex)
-            {
-                //The RestSharp async interface throws this exception if the content is not json
-                //While the sync one simply records it on the resp object...
-                //TODO: File bug with RestSharp
-                result = new TResponse();
-                result.ProcessRestResponse(request, null);
-            }
-
-            return result;
+            var resp = await Client.ExecuteTaskAsync<TResponse>(request, cancellationToken);
+            return DripResponse.FromRequestResponse<TResponse>(request, resp);
         }
 
         protected virtual RestClient CreateRestClient()

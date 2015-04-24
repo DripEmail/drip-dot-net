@@ -89,14 +89,27 @@ namespace Drip
             return (int)StatusCode < 400 && !HasErrors();
         }
 
-        internal protected virtual void ProcessRestResponse(IRestRequest restRequest, IRestResponse restResponse)
+        internal protected static DripResponse FromRequestResponse(IRestRequest restRequest, IRestResponse restResponse)
         {
-            OriginalRequest = restRequest;
-            OriginalResponse = restResponse;
+            var result = new DripResponse();
 
-            if (restResponse == null) return;
+            result.OriginalRequest = restRequest;
+            result.OriginalResponse = restResponse;
+            result.StatusCode = restResponse.StatusCode;
 
-            StatusCode = restResponse.StatusCode;
+            return result;
+        }
+
+        internal protected static TResponse FromRequestResponse<TResponse>(IRestRequest restRequest, IRestResponse<TResponse> restResponse)
+            where TResponse : DripResponse, new()
+        {
+            var result = restResponse.Data ?? new TResponse();
+
+            result.OriginalRequest = restRequest;
+            result.OriginalResponse = restResponse;
+            result.StatusCode = restResponse.StatusCode;
+
+            return result;
         }
     }
 }
