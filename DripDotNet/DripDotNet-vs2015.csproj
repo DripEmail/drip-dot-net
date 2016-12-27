@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\DripClient.Subscribers.cs" />
+    <None Include="DripDotNet-vs2015.csproj.nuspec" />
     <None Include="DripDotNet.licenseheader" />
     <None Include="packages.config" />
   </ItemGroup>
