@@ -24,9 +24,9 @@
 
 using Drip.Protocol;
 using RestSharp;
+using RestSharp.Authenticators;
 using RestSharp.Deserializers;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
