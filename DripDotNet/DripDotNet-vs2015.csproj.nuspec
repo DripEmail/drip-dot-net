@@ -3,7 +3,7 @@
   <metadata>
     <id>Leadpages.Drip.DripDotNet</id>
     <title>Drip API Wrapper</title>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <authors>dripaccounts</authors>
     <owners>dripaccounts</owners>
     <licenseUrl>https://github.com/DripEmail/drip-dot-net/blob/master/LICENSE</licenseUrl>
@@ -14,7 +14,7 @@
       An object-oriented .NET wrapper for Drip's REST API v2.0.
       This implementation supports both synchronous and Task-based asynchronous calling semantics.
     </description>
-    <releaseNotes>First release of the package.</releaseNotes>
+    <releaseNotes>Fix issue with no build in package.</releaseNotes>
     <copyright>Copyright (c) 2015 - 2017 Avenue 81 Inc. d/b/a Leadpages</copyright>
     <tags>email drip marketing</tags>
     <dependencies>
