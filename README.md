@@ -7,7 +7,9 @@ This implementation supports both synchronous and Task-based asynchronous callin
 
 ### NuGet
 
-File a request if you're interested in this. For now see below.
+```shell
+Install-Package Leadpages.Drip.DripDotNet
+```
 
 ### From Binaries
 
