@@ -1,13 +1,15 @@
 # Drip API Wrapper - .NET
 
-An object-oriented .NET wrapper for [Drip's](https://www.getdrip.com/) [REST API v2.0](https://www.getdrip.com/docs/rest-api).
+An object-oriented .NET wrapper for [Drip's](https://www.drip.co/) [REST API v2.0](https://www.getdrip.com/docs/rest-api).
 This implementation supports both synchronous and Task-based asynchronous calling semantics.
 
 ## Installation
 
 ### NuGet
 
-File a request if you're interested in this. For now see below.
+```shell
+Install-Package Leadpages.Drip.DripDotNet
+```
 
 ### From Binaries
 
@@ -17,9 +19,9 @@ Reference the bin/Debug or bin/Release dll's in your project.
 
 Clone the repo.
 
-Open "DripDotNet-vs2013.sln" in Visual Studio 2013.
+Open "DripDotNet-vs2013.sln" or "DripDotNet-vs2015.sln" in Visual Studio 2013.
 
-Build the DripDotNet-vs2013 project in Release or Debug mode.
+Build the DripDotNet-vs2013 or DripDotNet-vs2015 project in Release or Debug mode.
 
 Reference the DripDotNet.dll and RestSharp.dll in your .NET 4.5 project.
 

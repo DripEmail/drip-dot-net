@@ -1,7 +1,7 @@
 ﻿/*
  The MIT License (MIT)
  
- Copyright (c) 2015 Drip
+ Copyright (c) 2015 - 2017 Avenue 81 Inc. d/b/a Leadpages, All Rights Reserved
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,9 @@
 
 using Drip.Protocol;
 using RestSharp;
+using RestSharp.Authenticators;
 using RestSharp.Deserializers;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
