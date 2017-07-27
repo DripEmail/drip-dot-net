@@ -1,5 +1,7 @@
 # Drip API Wrapper - .NET
 
+This project is no longer under active development and is in need of a maintainer. If you would consider maintaining this project please get in touch with us at support@getdrip.com.
+
 An object-oriented .NET wrapper for [Drip's](https://www.drip.co/) [REST API v2.0](https://www.getdrip.com/docs/rest-api).
 This implementation supports both synchronous and Task-based asynchronous calling semantics.
 
