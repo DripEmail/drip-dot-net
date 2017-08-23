@@ -44,6 +44,7 @@ namespace DripDotNetTests
             var result = new ModifyDripSubscriberRequest
             {
                 Email = GetRandomEmailAddress(),
+                UserId = IntUtil.Random(1001,9999).ToString(),
                 CustomFields = new Dictionary<string, string>
                 { 
                     {"id", Guid.NewGuid().ToString("n")},
@@ -68,6 +69,22 @@ namespace DripDotNetTests
 
         public void Dispose()
         {
+        }
+    }
+
+    public static class IntUtil
+    {
+        private static Random random;
+
+        private static void Init()
+        {
+            if (random == null) random = new Random();
+        }
+
+        public static int Random(int min, int max)
+        {
+            Init();
+            return random.Next(min, max);
         }
     }
 }

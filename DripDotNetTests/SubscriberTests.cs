@@ -56,6 +56,7 @@ namespace DripDotNetTests
             Assert.Equal(1, result.Subscribers.Count);
 
             var actual = result.Subscribers.First();
+            Assert.Equal(expected.UserId, actual.UserId);
             DripAssert.Equal(expected.CustomFields, actual.CustomFields);
             DripAssert.ContainsSameItems(expected.Tags, actual.Tags);
 
@@ -90,6 +91,7 @@ namespace DripDotNetTests
 
             var actual = result.Subscribers.First();
             Assert.Equal(expected.Email, actual.Email);
+            Assert.Equal(expected.UserId, actual.UserId);
             DripAssert.Equal(expected.CustomFields, actual.CustomFields);
             DripAssert.ContainsSameItems(expected.Tags, actual.Tags);
 
