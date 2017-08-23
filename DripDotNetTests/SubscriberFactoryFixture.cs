@@ -72,6 +72,9 @@ namespace DripDotNetTests
         }
     }
 
+    /*
+    This support class is used to generate a random integer for the UserId field.
+    */
     public static class IntUtil
     {
         private static Random random;
