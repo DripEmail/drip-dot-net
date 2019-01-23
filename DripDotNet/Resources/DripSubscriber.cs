@@ -40,6 +40,11 @@ namespace Drip
         public string Email { get; set; }
 
         /// <summary>
+        /// The subscriber's user id (a unique identifier for the user, such as a primary key).
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// The subscriber's time zone (in Olsen format). Defaults to Etc/UTC
         /// </summary>
         public string Timezone { get; set; }
@@ -107,6 +112,11 @@ namespace Drip
         /// The subscriber's email address.
         /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// The subscriber's user id (a unique identifier for the user, such as a primary key).
+        /// </summary>
+        public string UserId { get; set; }
 
         /// <summary>
         /// The subscriber's time zone (in Olsen format). Defaults to Etc/UTC
