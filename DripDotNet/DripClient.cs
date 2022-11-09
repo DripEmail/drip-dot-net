@@ -26,12 +26,13 @@ using Drip.Protocol;
 using RestSharp;
 using RestSharp.Authenticators;
 using RestSharp.Deserializers;
+using RestSharp.Serialization.Json;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Drip
-{
+{ 
     public partial class DripClient
     {
         protected const string BatchRequestBodyKey = "batches";
@@ -105,7 +106,7 @@ namespace Drip
         {
             var body = new Dictionary<string, TData>[] { new Dictionary<string, TData> { { key, data } } };
             var req = CreatePostRequest(resourceUrl, BatchRequestBodyKey, body);
-            var resp = await Client.ExecuteTaskAsync(req, cancellationToken);
+            var resp = await Client.ExecuteAsync(req, cancellationToken);
             return DripResponse.FromRequestResponse(req, resp);
         }
 
@@ -136,17 +137,17 @@ namespace Drip
         protected virtual async Task<TResponse> ExecuteAsync<TResponse>(IRestRequest request, CancellationToken cancellationToken)
             where TResponse : DripResponse, new()
         {
-            var resp = await Client.ExecuteTaskAsync<TResponse>(request, cancellationToken);
+            var resp = await Client.ExecuteAsync<TResponse>(request, cancellationToken);
             return DripResponse.FromRequestResponse<TResponse>(request, resp);
         }
 
         protected virtual RestClient CreateRestClient()
         {
             var client = new RestClient(BaseUrl);
-            client.AddDefaultHeader("Content-Type", "application/vnd.api+json");
+            client.AddDefaultHeader("Content-Type", "application/json");
             client.UserAgent = "Drip DotNet v#" + typeof(DripClient).Assembly.GetName().Version.ToString();
             client.AddDefaultUrlSegment("accountId", AccountId);
-            client.AddHandler("application/vnd.api+json", new JsonDeserializer());
+            client.AddHandler("application/json", new JsonDeserializer());
 
             if (string.IsNullOrEmpty(AccessToken))
                 client.Authenticator = new HttpBasicAuthenticator(ApiKey, string.Empty);
