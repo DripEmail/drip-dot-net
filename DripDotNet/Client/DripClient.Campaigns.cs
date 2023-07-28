@@ -86,7 +86,7 @@ namespace Drip
             return ExecuteAsync<DripSubscribersResponse>(CreateUnsubscribeCampaignRequest(idOrEmail, campaignId), cancellationToken);
         }
 
-        protected virtual IRestRequest CreateUnsubscribeCampaignRequest(string idOrEmail, string campaignId)
+        protected virtual RestRequest CreateUnsubscribeCampaignRequest(string idOrEmail, string campaignId)
         {
             var req = CreatePostRequest(UnsubscribeFromCampaignResource, null, null, SubscriberIdUrlSegmentKey, idOrEmail);
             if (campaignId != null)

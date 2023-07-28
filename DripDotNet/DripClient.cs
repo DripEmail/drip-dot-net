@@ -110,12 +110,12 @@ namespace Drip
             return DripResponse.FromRequestResponse(req, resp);
         }
 
-        protected virtual IRestRequest CreatePostRequest(string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
+        protected virtual RestRequest CreatePostRequest(string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
         {
             return CreateRequest(Method.POST, resourceUrl, requestBodyKey, requestBody, urlSegmentKey, urlSegmentValue);
         }
 
-        protected virtual IRestRequest CreateRequest(Method method, string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
+        protected virtual RestRequest CreateRequest(Method method, string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
         {
             var req = new RestRequest(resourceUrl, method);
             req.JsonSerializer = new RestSharpLcaseUnderscoreSerializer();
@@ -127,17 +127,17 @@ namespace Drip
             return req;
         }
 
-        protected virtual TResponse Execute<TResponse>(IRestRequest request)
+        protected virtual TResponse Execute<TResponse>(RestRequest request)
             where TResponse : DripResponse, new()
         {
             var resp = Client.Execute<TResponse>(request);
             return DripResponse.FromRequestResponse<TResponse>(request, resp);
         }
 
-        protected virtual async Task<TResponse> ExecuteAsync<TResponse>(IRestRequest request, CancellationToken cancellationToken)
+        protected virtual async Task<TResponse> ExecuteAsync<TResponse>(RestRequest request, CancellationToken cancellationToken)
             where TResponse : DripResponse, new()
         {
-            var resp = await Client.ExecuteTaskAsync<TResponse>(request, cancellationToken);
+            var resp = await Client.ExecuteAsync<TResponse>(request, cancellationToken);
             return DripResponse.FromRequestResponse<TResponse>(request, resp);
         }
 

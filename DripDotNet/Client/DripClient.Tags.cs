@@ -92,7 +92,7 @@ namespace Drip
             return ExecuteAsync<DripResponse>(CreateRemoveTagFromSubscriberRequest(email, tag), cancellationToken);
         }
 
-        protected virtual IRestRequest CreateRemoveTagFromSubscriberRequest(string email, string tag)
+        protected virtual RestRequest CreateRemoveTagFromSubscriberRequest(string email, string tag)
         {
             var req = CreateRequest(Method.DELETE, RemoveTagFromSubscriberResource, null, null, SubscriberIdUrlSegmentKey, email);
             if (tag != null)
