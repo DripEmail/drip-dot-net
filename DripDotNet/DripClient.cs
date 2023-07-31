@@ -24,9 +24,7 @@
 
 using Drip.Protocol;
 using RestSharp;
-using RestSharp.Serialization.Json;
 using RestSharp.Authenticators;
-using RestSharp.Deserializers;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -67,7 +65,7 @@ namespace Drip
         protected virtual TResponse GetResource<TResponse>(string resourceUrl, string urlSegmentKey, string urlSegmentValue)
             where TResponse : DripResponse, new()
         {
-            var req = new RestRequest(resourceUrl, Method.GET);
+            var req = new RestRequest(resourceUrl, Method.Get);
             req.AddUrlSegment(urlSegmentKey, urlSegmentValue);
             return Execute<TResponse>(req);
         }
@@ -75,7 +73,7 @@ namespace Drip
         protected virtual Task<TResponse> GetResourceAsync<TResponse>(string resourceUrl, string urlSegmentKey, string urlSegmentValue, CancellationToken cancellationToken)
             where TResponse : DripResponse, new()
         {
-            var req = new RestRequest(resourceUrl, Method.GET);
+            var req = new RestRequest(resourceUrl, Method.Get);
             req.AddUrlSegment(urlSegmentKey, urlSegmentValue);
             return ExecuteAsync<TResponse>(req, cancellationToken);
         }
@@ -106,19 +104,18 @@ namespace Drip
         {
             var body = new Dictionary<string, TData>[] { new Dictionary<string, TData> { { key, data } } };
             var req = CreatePostRequest(resourceUrl, BatchRequestBodyKey, body);
-            var resp = await Client.ExecuteTaskAsync(req, cancellationToken);
+            var resp = await Client.ExecuteAsync(req, cancellationToken);
             return DripResponse.FromRequestResponse(req, resp);
         }
 
         protected virtual RestRequest CreatePostRequest(string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
         {
-            return CreateRequest(Method.POST, resourceUrl, requestBodyKey, requestBody, urlSegmentKey, urlSegmentValue);
+            return CreateRequest(Method.Post, resourceUrl, requestBodyKey, requestBody, urlSegmentKey, urlSegmentValue);
         }
 
         protected virtual RestRequest CreateRequest(Method method, string resourceUrl, string requestBodyKey = null, object requestBody = null, string urlSegmentKey = null, string urlSegmentValue = null)
         {
             var req = new RestRequest(resourceUrl, method);
-            req.JsonSerializer = new RestSharpLcaseUnderscoreSerializer();
 
             if (requestBodyKey != null && requestBody != null)
                 req.AddJsonBody(new Dictionary<string, object> { { requestBodyKey, requestBody } });
@@ -143,11 +140,12 @@ namespace Drip
 
         protected virtual RestClient CreateRestClient()
         {
-            var client = new RestClient(BaseUrl);
+            var options = new RestClientOptions();
+            options.UserAgent = "Drip DotNet v#" + typeof(DripClient).Assembly.GetName().Version.ToString();
+            options.BaseUrl = new System.Uri(BaseUrl);
+            var client = new RestClient(options);
             client.AddDefaultHeader("Content-Type", "application/vnd.api+json");
-            client.UserAgent = "Drip DotNet v#" + typeof(DripClient).Assembly.GetName().Version.ToString();
             client.AddDefaultUrlSegment("accountId", AccountId);
-            client.AddHandler("application/vnd.api+json", new JsonDeserializer());
 
             if (string.IsNullOrEmpty(AccessToken))
                 client.Authenticator = new HttpBasicAuthenticator(ApiKey, string.Empty);
