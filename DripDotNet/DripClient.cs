@@ -155,7 +155,7 @@ namespace Drip
             else
                 addHeaderThing = true;
 
-            var defaultSettings = new JsonSerializerSettings
+            JsonSerializerSettings defaultSettings = new JsonSerializerSettings
             {
                 ContractResolver = new LcaseUnderscoreMappingResolver(),
                 NullValueHandling = NullValueHandling.Ignore
