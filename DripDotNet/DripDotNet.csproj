@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>DripDotNetSDK</PackageId>
     <AssemblyVersion>3.1.0</AssemblyVersion>
+    <Version>3.1.0</Version>
+    <Authors>Drip</Authors>
+    <Company>Drip</Company>
+    <PackageTags>email;marketing;drip;ecommerce;newsletters</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
