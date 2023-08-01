@@ -65,13 +65,13 @@ namespace Drip
         /// The underlying response that was received.
         /// You shouldn't need to use this, but it might be helpful for debugging.
         /// </summary>
-        public IRestResponse OriginalResponse { get; set; }
+        public RestResponse OriginalResponse { get; set; }
 
         /// <summary>
         /// The underlying request that was sent
         /// You shouldn't need to use this, but it might be helpful for debugging.
         /// </summary>
-        public IRestRequest OriginalRequest { get; set; }
+        public RestRequest OriginalRequest { get; set; }
 
         /// <summary>
         /// A quick way to check if this DripResponse contains errors.
@@ -89,7 +89,7 @@ namespace Drip
             return (int)StatusCode < 400 && !HasErrors();
         }
 
-        internal protected static DripResponse FromRequestResponse(IRestRequest restRequest, IRestResponse restResponse)
+        internal protected static DripResponse FromRequestResponse(RestRequest restRequest, RestResponse restResponse)
         {
             var result = new DripResponse();
 
@@ -100,7 +100,7 @@ namespace Drip
             return result;
         }
 
-        internal protected static TResponse FromRequestResponse<TResponse>(IRestRequest restRequest, IRestResponse<TResponse> restResponse)
+        internal protected static TResponse FromRequestResponse<TResponse>(RestRequest restRequest, RestResponse<TResponse> restResponse)
             where TResponse : DripResponse, new()
         {
             var result = restResponse.Data ?? new TResponse();

@@ -23,6 +23,8 @@
 */
 using Drip;
 using Drip.Protocol;
+using Newtonsoft.Json;
+using RestSharp.Serializers.NewtonsoftJson;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -54,7 +56,13 @@ namespace DripDotNetTests
         [Fact]
         public void RestSharpLcaseUnderscoreSerializerBasicallyWorks()
         {
-            var serializer = new RestSharpLcaseUnderscoreSerializer();
+            JsonSerializerSettings DefaultSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new LcaseUnderscoreMappingResolver(),
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var serializer = new JsonNetSerializer(DefaultSettings);
 
             var sourceObj = new 
             {

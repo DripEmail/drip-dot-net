@@ -63,7 +63,7 @@ namespace Drip
         {
             //This doesn't use a PostResource overload because specifying a return type causes an error
             var req = CreatePostRequest(ApplyTagToSubscriberResource, TagsRequestBodyKey, new DripTag[] { new DripTag { Email = email, Tag = tag } });
-            var resp = await Client.ExecuteTaskAsync(req, cancellationToken);
+            var resp = await Client.ExecuteAsync(req, cancellationToken);
             return DripResponse.FromRequestResponse(req, resp);
         }
 
@@ -92,9 +92,9 @@ namespace Drip
             return ExecuteAsync<DripResponse>(CreateRemoveTagFromSubscriberRequest(email, tag), cancellationToken);
         }
 
-        protected virtual IRestRequest CreateRemoveTagFromSubscriberRequest(string email, string tag)
+        protected virtual RestRequest CreateRemoveTagFromSubscriberRequest(string email, string tag)
         {
-            var req = CreateRequest(Method.DELETE, RemoveTagFromSubscriberResource, null, null, SubscriberIdUrlSegmentKey, email);
+            var req = CreateRequest(Method.Delete, RemoveTagFromSubscriberResource, null, null, SubscriberIdUrlSegmentKey, email);
             if (tag != null)
                 req.AddUrlSegment(TagUrlSegmentKey, tag);
             return req;
