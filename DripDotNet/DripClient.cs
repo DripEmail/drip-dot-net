@@ -24,7 +24,6 @@
 
 using Drip.Protocol;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using RestSharp;
 using RestSharp.Authenticators;
 using RestSharp.Serializers.NewtonsoftJson;
@@ -147,28 +146,20 @@ namespace Drip
             options.UserAgent = "Drip DotNet v#" + typeof(DripClient).Assembly.GetName().Version.ToString();
             options.BaseUrl = new System.Uri(BaseUrl);
 
-            // TODO: Fix this once we unblock the customer
-            var addHeaderThing = false;
-
-            if (string.IsNullOrEmpty(AccessToken))
-                options.Authenticator = new HttpBasicAuthenticator(ApiKey, string.Empty);
-            else
-                addHeaderThing = true;
-
-            JsonSerializerSettings defaultSettings = new JsonSerializerSettings
+            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = new LcaseUnderscoreMappingResolver(),
                 NullValueHandling = NullValueHandling.Ignore
             };
 
-            var client = new RestClient(
-                options,
-                configureSerialization: s => s.UseNewtonsoftJson(defaultSettings)
-            );
+            var client = new RestClient(options);
             client.AddDefaultHeader("Content-Type", "application/vnd.api+json");
             client.AddDefaultUrlSegment("accountId", AccountId);
+            client.UseNewtonsoftJson(jsonSerializerSettings);
 
-            if (addHeaderThing)
+            if (string.IsNullOrEmpty(AccessToken))
+                client.Authenticator = new HttpBasicAuthenticator(ApiKey, string.Empty);
+            else
                 client.AddDefaultHeader("Authorization", "Bearer #" + AccessToken);
 
             return client;
