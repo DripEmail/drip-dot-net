@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>DripDotNetSDK</PackageId>
-    <AssemblyVersion>3.1.0</AssemblyVersion>
-    <Version>3.1.0</Version>
+    <AssemblyVersion>4.0.0</AssemblyVersion>
+    <Version>4.0.0</Version>
     <Authors>Drip</Authors>
     <Company>Drip</Company>
     <PackageTags>email;marketing;drip;ecommerce;newsletters</PackageTags>
@@ -12,8 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RestSharp" Version="108.3.0" />
-    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="108.3.0" />
+    <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="110.2.0" />
   </ItemGroup>
 
   <ItemGroup>
