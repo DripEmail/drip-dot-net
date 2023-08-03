@@ -1,7 +1,7 @@
 # Drip API Wrapper - .NET
 
 ```
-This project is no longer under active development and is in need of a maintainer. 
+This project is no longer under active development and is in need of a maintainer.
 If you would consider maintaining this project please get in touch with us at support@getdrip.com.
 ```
 
@@ -12,8 +12,17 @@ This implementation supports both synchronous and Task-based asynchronous callin
 
 ### NuGet
 
+For historical reasons, we have three different NuGet packages, all managed by different accounts.  The three packages,
+from oldest to newest, are:
+- Leadpages.Drip.DripDotNet: https://www.nuget.org/packages/Leadpages.Drip.DripDotNet
+- DripDotNet: https://www.nuget.org/packages/DripDotNet
+- DripDotNetSDK: https://www.nuget.org/packages/DripDotNetSDK/
+
+Unless you need to use old versions of the `RestSharp` library, we recommend using the last option, `DripDotNetSDK`
+
+To install, run the following command:
 ```shell
-Install-Package Leadpages.Drip.DripDotNet
+Install-Package [insert package name here]
 ```
 
 ### From Binaries
@@ -79,7 +88,7 @@ both synchronous and asynchronous signatures (only synchronous shown here):
 | Track an event             | `TrackEvent(dripEvent)`                                 |
 | Track a batch of events    | `TrackEvents(dripEvents)`                               |
 
-Actions that require complex arguments take them in the form of a strongly typed 
+Actions that require complex arguments take them in the form of a strongly typed
 `Request` object.
 
 **Note:** We do not have complete API coverage yet. If we are missing an API method
@@ -113,13 +122,13 @@ Debug.WriteLine("Subscriber Email: " + subscriber.Email);
 
 ## Testing
 
-In order to run the tests you need to set two environment variables or you 
+In order to run the tests you need to set two environment variables or you
 will get exceptions.
 
 	DRIP_API_KEY="YOUR_API_KEY"
 	DRIP_ACCOUNT_ID="YOUR_ACCOUNT_ID"
 
-XUnit is used for testing. Install the xunit test runner to easily run from 
+XUnit is used for testing. Install the xunit test runner to easily run from
 within the Visual Studio solution.
 
 Since we do not yet support creating campaigns via API there is a TestCampaignId
