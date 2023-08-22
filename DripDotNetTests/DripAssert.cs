@@ -22,13 +22,9 @@
  SOFTWARE.
 */
 using Drip;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace DripDotNetTests
@@ -55,7 +51,7 @@ namespace DripDotNetTests
             foreach (var item in actual)
                 actualList.Add(item);
 
-            int expectedCount = 0;
+            var expectedCount = 0;
             foreach (var item in expected)
             {
                 expectedCount++;

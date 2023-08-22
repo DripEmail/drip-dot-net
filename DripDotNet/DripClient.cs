@@ -38,9 +38,9 @@ namespace Drip
         protected const string BatchRequestBodyKey = "batches";
 
         public const string BaseUrl = "https://api.getdrip.com/v2/";
-        public string ApiKey { get; set; }
+        private string ApiKey { get; set; }
         public string AccessToken { get; set; }
-        public string AccountId { get; set; }
+        private string AccountId { get; set; }
 
         private RestClient client;
         protected RestClient Client

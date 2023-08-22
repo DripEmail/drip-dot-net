@@ -23,17 +23,13 @@
 */
 using Drip;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DripDotNetTests
 {
     public class DripClientFixture: IDisposable
     {
-        public string ApiKey { get; private set; }
-        public string AccountId { get; private set; }
+        public string ApiKey { get; }
+        public string AccountId { get; }
         public DripClient Client { get; private set; }
 
         public DripClientFixture()
