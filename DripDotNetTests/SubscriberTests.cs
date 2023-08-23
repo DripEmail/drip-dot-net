@@ -107,7 +107,7 @@ namespace DripDotNetTests
         }
 
         [Fact]
-        public void NonExistedSubscriberReturnsError()
+        public void NonExistentSubcriberReturnsError()
         {
             var randomSubscriber = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
 
@@ -118,7 +118,7 @@ namespace DripDotNetTests
         }
 
         [Fact]
-        public async Task NonExistedSubscriberReturnsErrorAsync()
+        public async Task NonExistentSubscriberReturnsErrorAsync()
         {
             var randomSubscriber = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
 

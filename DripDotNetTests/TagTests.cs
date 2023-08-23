@@ -80,7 +80,7 @@ namespace DripDotNetTests
         }
 
         [Fact]
-        public void CanRemoveNonExistedTag()
+        public void CanRemoveNonExistentTag()
         {
             var originalSubscriber = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
             dripClientFixture.Client.CreateOrUpdateSubscriber(originalSubscriber);
@@ -129,7 +129,7 @@ namespace DripDotNetTests
         }
 
         [Fact]
-        public async Task CanRemoveNonExistedTagAsync()
+        public async Task CanRemoveNonExistentTagAsync()
         {
             var originalSubscriber = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
             await dripClientFixture.Client.CreateOrUpdateSubscriberAsync(originalSubscriber);
