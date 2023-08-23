@@ -21,12 +21,10 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 */
-using Drip;
+
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -62,8 +60,8 @@ namespace DripDotNetTests
             DripAssert.Success(subscriberResult);
 
             var newSubscriber = subscriberResult.Subscribers.First();
-            Assert.True(newSubscriber.Tags.Contains(newTag));
-            Assert.False(newSubscriber.Tags.Contains(oldTag));
+            Assert.Contains(newTag, newSubscriber.Tags);
+            Assert.DoesNotContain(oldTag, newSubscriber.Tags);
         }
 
         [Fact]
@@ -78,11 +76,11 @@ namespace DripDotNetTests
             DripAssert.Success(subscriberResult);
 
             var newSubscriber = subscriberResult.Subscribers.First();
-            Assert.True(newSubscriber.Tags.Contains(tag));
+            Assert.Contains(tag, newSubscriber.Tags);
         }
 
         [Fact]
-        public void CanRemoveNonExistantTag()
+        public void CanRemoveNonExistentTag()
         {
             var originalSubscriber = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
             dripClientFixture.Client.CreateOrUpdateSubscriber(originalSubscriber);
@@ -111,8 +109,8 @@ namespace DripDotNetTests
             DripAssert.Success(subscriberResult);
 
             var newSubscriber = subscriberResult.Subscribers.First();
-            Assert.True(newSubscriber.Tags.Contains(newTag));
-            Assert.False(newSubscriber.Tags.Contains(oldTag));
+            Assert.Contains(newTag, newSubscriber.Tags);
+            Assert.DoesNotContain(oldTag, newSubscriber.Tags);
         }
 
         [Fact]
@@ -127,11 +125,11 @@ namespace DripDotNetTests
             DripAssert.Success(subscriberResult);
 
             var newSubscriber = subscriberResult.Subscribers.First();
-            Assert.True(newSubscriber.Tags.Contains(tag));
+            Assert.Contains(tag, newSubscriber.Tags);
         }
 
         [Fact]
-        public async Task CanRemoveNonExistantTagAsync()
+        public async Task CanRemoveNonExistentTagAsync()
         {
             var originalSubscriber = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
             await dripClientFixture.Client.CreateOrUpdateSubscriberAsync(originalSubscriber);

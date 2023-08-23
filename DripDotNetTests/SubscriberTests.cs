@@ -21,12 +21,9 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 */
-using Drip;
-using System;
-using System.Collections.Generic;
+
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -53,7 +50,7 @@ namespace DripDotNetTests
 
             result = dripClientFixture.Client.GetSubscriber(expected.Email);
             DripAssert.Success(result, HttpStatusCode.OK);
-            Assert.Equal(1, result.Subscribers.Count);
+            Assert.Single(result.Subscribers);
 
             var actual = result.Subscribers.First();
             DripAssert.Equal(expected.CustomFields, actual.CustomFields);
@@ -67,7 +64,7 @@ namespace DripDotNetTests
 
             result = dripClientFixture.Client.GetSubscriber(expected.NewEmail);
             DripAssert.Success(result, HttpStatusCode.OK);
-            Assert.Equal(1, result.Subscribers.Count);
+            Assert.Single(result.Subscribers);
 
             actual = result.Subscribers.First();
             Assert.Equal(expected.NewEmail, actual.Email);
@@ -86,7 +83,7 @@ namespace DripDotNetTests
 
             result = await dripClientFixture.Client.GetSubscriberAsync(expected.Email);
             DripAssert.Success(result, HttpStatusCode.OK);
-            Assert.Equal(1, result.Subscribers.Count);
+            Assert.Single(result.Subscribers);
 
             var actual = result.Subscribers.First();
             Assert.Equal(expected.Email, actual.Email);
@@ -101,7 +98,7 @@ namespace DripDotNetTests
 
             result = await dripClientFixture.Client.GetSubscriberAsync(expected.NewEmail);
             DripAssert.Success(result, HttpStatusCode.OK);
-            Assert.Equal(1, result.Subscribers.Count);
+            Assert.Single(result.Subscribers);
 
             actual = result.Subscribers.First();
             Assert.Equal(expected.NewEmail, actual.Email);
@@ -110,7 +107,7 @@ namespace DripDotNetTests
         }
 
         [Fact]
-        public void NonExistantSubcriberReturnsError()
+        public void NonExistentSubcriberReturnsError()
         {
             var randomSubscriber = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
 
@@ -121,7 +118,7 @@ namespace DripDotNetTests
         }
 
         [Fact]
-        public async Task NonExistantSubcriberReturnsErrorAsync()
+        public async Task NonExistentSubscriberReturnsErrorAsync()
         {
             var randomSubscriber = subscriberFactoryFixture.CreateComplexUniqueModifyDripSubscriber();
 

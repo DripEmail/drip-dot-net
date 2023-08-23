@@ -21,7 +21,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 */
-using Drip;
+
 using Drip.Protocol;
 using Newtonsoft.Json;
 using RestSharp.Serializers.NewtonsoftJson;
@@ -56,13 +56,13 @@ namespace DripDotNetTests
         [Fact]
         public void RestSharpLcaseUnderscoreSerializerBasicallyWorks()
         {
-            JsonSerializerSettings DefaultSettings = new JsonSerializerSettings
+            var defaultSettings = new JsonSerializerSettings
             {
                 ContractResolver = new LcaseUnderscoreMappingResolver(),
                 NullValueHandling = NullValueHandling.Ignore
             };
 
-            var serializer = new JsonNetSerializer(DefaultSettings);
+            var serializer = new JsonNetSerializer(defaultSettings);
 
             var sourceObj = new
             {
@@ -74,7 +74,8 @@ namespace DripDotNetTests
             };
 
             var actualString = serializer.Serialize(sourceObj);
-            var expectedString = string.Format("{{\"test\":\"abc\",\"testing_part_deux\":2,\"nested_list\":[],\"its_now\":\"{0}\"}}", sourceObj.ItsNow.Value.ToString(@"yyyy-MM-dd\THH:mm:ss.FFFFFFF\Z", CultureInfo.InvariantCulture));
+            var expectedString =
+                $"{{\"test\":\"abc\",\"testing_part_deux\":2,\"nested_list\":[],\"its_now\":\"{sourceObj.ItsNow.Value.ToString(@"yyyy-MM-dd\THH:mm:ss.FFFFFFF\Z", CultureInfo.InvariantCulture)}\"}}";
 
             Assert.Equal(expectedString, actualString);
         }
