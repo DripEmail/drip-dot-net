@@ -31,7 +31,7 @@ namespace DripDotNetTests
     public class CampaignTests: IClassFixture<DripClientFixture>, IClassFixture<SubscriberFactoryFixture>
     {
         //TODO: put this in a configuration file
-        const string TestCampaignId = "3057996"; //This is a test campaign in my test account
+        const string TestCampaignId = "3057996"; //This is a test campaign in my test account. Replace this with a Campaign Id from your account before running tests.
 
         DripClientFixture dripClientFixture;
         SubscriberFactoryFixture subscriberFactoryFixture;
